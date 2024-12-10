@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Review Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="ctyle.css">
+</head>
+<body>
+    <center>
+        
+    </center>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="movie.html">Cinebox</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Film
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Popular</a></li>
+                            <li><a class="dropdown-item" href="#">Now Playing</a></li>
+                            <li><a class="dropdown-item" href="#">Upcoming</a></li>
+                            <li><a class="dropdown-item" href="#">Top Rated</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="aura.html">Review</a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-light ms-3">Login</button>
+            </div>
+        </div>
+    </nav> 
+    <div class="form-container">
+        <h1>Customer Review</h1>
+        <p>We value your feedback. Please take a moment to review your experience with us.</p>
+        <form id="reviewForm">
+            <label for="name">isi namamu</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+            <label for="phone">Your Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
+
+            <label>rating yang kamu berikan /10</label>
+            <div class="rating-numeric" id="numericRating">
+                <span data-value="1">1</span>
+                <span data-value="2">2</span>
+                <span data-value="3">3</span>
+                <span data-value="4">4</span>
+                <span data-value="5">5</span>
+                <span data-value="6">6</span>
+                <span data-value="7">7</span>
+                <span data-value="8">8</span>
+                <span data-value="9">9</span>
+                <span data-value="10">10</span>
+            </div>
+
+            <label>Kualitas Film</label>
+            <div class="rating-stars" id="starRating">
+                <span data-value="1">★</span>
+                <span data-value="2">★</span>
+                <span data-value="3">★</span>
+                <span data-value="4">★</span>
+                <span data-value="5">★</span>
+            </div>
+
+            <label for="comments">Komentar</label>
+            <textarea id="comments" name="comments" placeholder="Please provide any additional comments or suggestions"></textarea>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="agree" name="agree" required>
+                <label for="agree">Saya setuju ulasan saya di perlihatkan di website</label>
+            </div>
+
+            <button type="submit" class="submit-button">Submit Review</button>
+        </form>
+
+        <div id="responseMessage" style="margin-top: 20px; display: none; text-align: center;"></div>
+    </div>
+
+    <script>
+        // Handle numeric rating
+        const numericRating = document.getElementById('numericRating');
+        numericRating.addEventListener('click', (e) => {
+            if (e.target.tagName === 'SPAN') {
+                Array.from(numericRating.children).forEach((child) => child.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        });
+
+        // Handle star rating
+        const starRating = document.getElementById('starRating');
+        starRating.addEventListener('click', (e) => {
+            if (e.target.tagName === 'SPAN') {
+                Array.from(starRating.children).forEach((child) => child.classList.remove('active'));
+                for (let i = 0; i < e.target.dataset.value; i++) {
+                    starRating.children[i].classList.add('active');
+                }
+            }
+        });
+
+        // Handle form submission
+        const form = document.getElementById('reviewForm');
+        const responseMessage = document.getElementById('responseMessage');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent form from refreshing the page
+
+            // Collect form data
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const comments = document.getElementById('comments').value;
+            const agree = document.getElementById('agree').checked;
+
+            // Get selected ratings
+            const numericRatingValue = [...numericRating.children].find(child => child.classList.contains('active'))?.dataset.value || 'Not provided';
+            const starRatingValue = [...starRating.children].filter(child => child.classList.contains('active')).length || 'Not provided';
+
+            // Display response message
+            responseMessage.style.display = 'block';
+            responseMessage.innerHTML = `
+                <h3>Thank you for your review!</h3>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone || 'Not provided'}</p>
+                <p><strong>Overall Experience:</strong> ${numericRatingValue}</p>
+                <p><strong>Quality of Service:</strong> ${starRatingValue} stars</p>
+                <p><strong>Comments:</strong> ${comments || 'No comments'}</p>
+                <p><strong>Agree to publish:</strong> ${agree ? 'Yes' : 'No'}</p>
+            `;
+
+            // Optionally reset the form
+            form.reset();
+            [...numericRating.children, ...starRating.children].forEach(child => child.classList.remove('active'));
+        });
+    </script>
+</body>
+</html>

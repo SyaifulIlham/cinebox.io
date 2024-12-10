@@ -1,0 +1,126 @@
+.film-list {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 1rem;
+}
+
+.film-list::-webkit-scrollbar {
+    height: 8px;
+}
+
+.film-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.film-list::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.film-card {
+    flex: 0 0 auto;
+    width: 200px;
+}
+.form-container {
+    background-color: #fff;
+    padding: 20px;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.rating-numeric,
+.rating-stars {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.rating-numeric span,
+.rating-stars span {
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.rating-numeric span:hover,
+.rating-stars span:hover {
+    background-color: #ddd;
+}
+
+.rating-numeric span.active,
+.rating-stars span.active {
+    background-color: #28a745;
+    color: white;
+}
+
+textarea {
+    height: 80px;
+    resize: none;
+}
+
+.checkbox-group {
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #444;
+}
+
+#responseMessage {
+    background-color: #e9f5e9;
+    border: 1px solid #28a745;
+    padding: 10px;
+    border-radius: 5px;
+    color: #155724;
+    text-align: left;
+}
